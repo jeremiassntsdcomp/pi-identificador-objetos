@@ -73,10 +73,10 @@ def getNextPosition(case, x, y):
     return (x, y)
 
 def isValidPosition(img, ref_img, x, y, l, c):
-    result = x >= 0 and x < l and y >= 0 and y < c and img[x][y] == 1 and ref_img[x][y] == 0
+    result = x >= 0 and x < l and y >= 0 and y < c and img[x][y] > 0 and ref_img[x][y] == 0
     return result
 
-def growRegion(img, ref_img, x, y, l, c):
+def growRegion(img, ref_img, x, y, l, c, id_object):
     cases = [0, 1, 2, 3]
     for case in cases:
         positions = getNextPosition(case, x, y)
@@ -84,8 +84,8 @@ def growRegion(img, ref_img, x, y, l, c):
         new_y = positions[1]
 
         if isValidPosition(img, ref_img, new_x, new_y, l, c):
-            ref_img[new_x][new_y] = 1
-            growRegion(img, ref_img, new_x, new_y, l, c)
+            ref_img[new_x][new_y] = id_object
+            growRegion(img, ref_img, new_x, new_y, l, c, id_object)
 
 def main():
     print("------ Sistema de verificação de produtos com defeito ------\n")
@@ -97,23 +97,26 @@ def main():
     print("--------------- Imagem original ---------------")
     printImage(img)
     
-    nObjects = 0
     nObjectsWithHole = 0
 
     # preenche imagem de referência
     ref_img = createImage(l, c, 0)
+    # define identificador do objeto
+    id_object = 0
     # busca sementes
     for i, line in enumerate(img):
         for j, column in enumerate(line):
-            if column == 1 and ref_img[i][j] == 0:
+            if column > 0 and ref_img[i][j] == 0:
+                id_object+=1
                 # achou semente, inicia crescimento por região
-                nObjects+=1
-                ref_img[i][j] = 1
-                growRegion(img, ref_img, i, j, l, c)
-                print("--------------- Objeto encontrado ---------------")
-                printImage(ref_img)
+                ref_img[i][j] = id_object
+                growRegion(img, ref_img, i, j, l, c, id_object)
+                # print("--------------- Objeto encontrado ---------------")
+                # printImage(ref_img)
 
-    print("Objetos encontrados: " + str(nObjects))
+    print("--------------- Imagem com objetos mapeados ---------------")
+    printImage(ref_img)
+    print("Objetos encontrados: " + str(id_object))
     print("Objetos encontrados com buracos: " + str(nObjectsWithHole))
 
 main()
