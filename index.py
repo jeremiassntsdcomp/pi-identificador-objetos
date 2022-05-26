@@ -64,10 +64,22 @@ def getNextPosition(case, x, y):
     if case == 0:
         x-=1
     elif case == 1:
+        x-=1
         y+=1
     elif case == 2:
+        y+=1
+    elif case == 3:
         x+=1
+        y+=1
+    elif case == 4:
+        x+=1
+    elif case == 5:
+        x+=1
+        y-=1
+    elif case == 6:
+        y-=1
     else:
+        x-=1
         y-=1
     
     return (x, y)
@@ -77,7 +89,7 @@ def isValidPosition(img, ref_img, x, y, l, c):
     return result
 
 def growRegion(img, ref_img, x, y, l, c, id_object):
-    cases = [0, 1, 2, 3]
+    cases = [0, 1, 2, 3, 4, 5, 6, 7]
     for case in cases:
         positions = getNextPosition(case, x, y)
         new_x = positions[0]
