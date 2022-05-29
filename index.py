@@ -6,18 +6,11 @@ sys.setrecursionlimit(100000)
 
 
 def getFile():
-    # define o exemplo que será verificado
-    option = 0
-    exemplos = 3
-    while option < 1 or option > exemplos:
-        print("Opções disponíveis:")
-        for i in range(0, exemplos):
-            index = str(i + 1)
-            print("Exemplo " + index)
-        print("\nDigite o número do exemplo que deseja verificar: ")
-        option = int(input())
+    image = ''
+    print("\nInsira o arquivo para realizar a análise:")
+    image = input()
     # abre arquivo da imagem
-    file = open("examples/example" + str(option) + ".pbm", "r")
+    file = open("examples/" + image, "r")
     return file
 
 
@@ -187,6 +180,7 @@ def main():
     printImage(ref_img)
     print("Objetos encontrados: " + str(id_object))
     print("Objetos encontrados com buracos: " + str(n_bjects_with_hole))
+    print("Objetos encontrados sem buracos: " + str(id_object - n_bjects_with_hole))
 
 
 main()
