@@ -139,8 +139,8 @@ def main():
     img = img_info["img"]
     l = img_info["lines"]
     c = img_info["columns"]
-    print("--------------- Imagem original ---------------")
-    printImage(img)
+    # print("--------------- Imagem original ---------------")
+    # printImage(img)
 
     n_bjects_with_hole = 0
 
@@ -176,8 +176,8 @@ def main():
                 if has_hole:
                     n_bjects_with_hole += 1
 
-    print("--------------- Imagem com objetos mapeados ---------------")
-    printImage(ref_img)
+    # print("--------------- Imagem com objetos mapeados ---------------")
+    # printImage(ref_img)
     print("Objetos encontrados: " + str(id_object))
     print("Objetos encontrados com buracos: " + str(n_bjects_with_hole))
     print("Objetos encontrados sem buracos: " + str(id_object - n_bjects_with_hole))
